@@ -1,0 +1,43 @@
+.card-header{
+    color: rgb(1, 100, 1);
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.card-img-top{
+    max-width: 70%;  
+    height: auto;  
+    
+}
+
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0px;
+  }
+
+  .mat-form-field {
+    width: 100%;
+    min-width: 300px;
+  }
+
+  mat-card-title,
+  mat-card-content {
+    display: flex;
+    justify-content: center;
+  }
+
+
+  .button {
+    display: flex;
+    justify-content: flex-end;
+  }
+  h1{
+    text-align: center;
+  }
+
+  .btnLogin{
+    text-align: center;
+    margin: auto;
+  }

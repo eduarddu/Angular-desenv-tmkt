@@ -1,0 +1,50 @@
+body{
+    background-color: whitesmoke;
+}
+h1{
+    color: #1B5E20;
+    text-align: center;
+    margin-top: 10px;
+    font-style: oblique;
+    
+    padding-left: 30px
+}
+
+h2{
+    color: #1B5E20
+    ;
+    font-style: oblique;
+    margin-top: 28px
+}
+.row{
+    padding-left: 120px;
+    margin-top: 20px;
+}
+
+.btnGravar{
+    margin-left: 100px;
+    position: absolute;
+    margin-top: 20px;
+}
+    
+#form1{
+    margin-top: 5px;
+}
+
+.pagEndereco{
+    padding-left:250px
+}
+
+#formPag2{
+    padding-left: 100px;
+}
+
+#formPag3{
+    padding-left: 100px;
+}
+
+.btnGerarGrid{
+    margin-left: 195px;
+    position: absolute;
+    
+}

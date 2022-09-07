@@ -1,0 +1,78 @@
+<div id="tituloPaginaMenu">
+    <h1>SIC - Sistemas de Informações Cadastrais</h1>
+</div>
+<div class="row">
+    <h2>Cadastro Menu</h2>
+    <mat-form-field appearance="legacy" id="form1">
+        <mat-label>Nome:</mat-label>
+        <input matInput type="text" [(ngModel)]="setCadastro.nome">  
+    </mat-form-field>
+    <button mat-raised-button color="primary" id="btnGravarMenu" class="btnGravar" (click)="insereMenu(setCadastro.nome)">Gravar</button>
+    <br><br>
+    <h2>Cadastro Página</h2>
+    <mat-form-field appearance="legacy" id="formPag1">
+        <mat-label>Nome:</mat-label>
+        <input matInput type="text" [(ngModel)]="setCadastroPag.Nome">
+    </mat-form-field>
+    <mat-form-field id="formPag2">
+        <mat-label id="endereco">Endereço:</mat-label>
+        <input id="endereco" matInput type="text" [(ngModel)]="setCadastroPag.Endereco">   
+    </mat-form-field>   
+    <mat-form-field appearance="legacy" id="formPag3">
+        <mat-label>Menu:</mat-label>
+        <mat-select [(ngModel)]="setCadastroPag.Menu" (click)="getMenu()">
+            <mat-option  *ngFor="let menus of consultaMenu" [value]="menus.codigo">{{menus.nome}}</mat-option>   
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" id="btnGravarPagina" class="btnGravar" 
+    (click)="inserePagina(setCadastroPag.Nome,setCadastroPag.Endereco,setCadastroPag.Menu)">Gravar</button>
+    <br><br>
+    <h2>Pesquisa</h2>
+      <mat-radio-group  [(ngModel)]="opcaoRadio">
+        <mat-radio-button value="1" color="primary">Menu</mat-radio-button>
+        <br><br>
+        <mat-radio-button value="2" color="primary">Página</mat-radio-button>
+      </mat-radio-group> 
+        <button (click)="verificarOpcaoGeraGrid()" mat-raised-button color="primary" id="btnGerarGrid" class="btnGerarGrid">Gerar GRID</button>
+</div>
+<br><br>
+<div *ngIf="opcaoRadio == '2';"  id="divGrdConsultaPagina"
+  [ngStyle]="{'visibility': visualizarGrdConsultaPagina ? 'visible' : 'hidden'}">  
+  <b id="grdTitulo"></b>
+  <dx-data-grid id="grdConsultaPagina" style=" margin: 0 auto;"
+      [ngStyle]="{'visibility': visualizarGrdConsultaPagina ? 'visible' : 'hidden'}"
+      #grdConsultaPagina
+      id="grdConsultaPagina"
+      [dataSource]="consultaPag" 
+      [showBorders]="true"
+      [rowAlternationEnabled]="false"  
+      [(noDataText)]="txtVazioGrid" 
+      [wordWrapEnabled]="true"
+      [errorRowEnabled]="true"
+      [hoverStateEnabled]="true">  
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxi-column dataField="PagNome" caption="Nome" dataType="string" [width]="300"></dxi-column>
+      <dxi-column dataField="PagEndereco" caption="Endereço" dataType="string" [width]="620"></dxi-column>
+  </dx-data-grid>
+</div>
+<div *ngIf="opcaoRadio == '1';"  id="divGrdConsultaMenu"
+  [ngStyle]="{'visibility': visualizarGrdConsultaMenu ? 'visible' : 'hidden'}">
+  <b></b>
+  <dx-data-grid id="grdConsultaMenu" style="margin: 0 auto;"
+      [ngStyle]="{'visibility': visualizarGrdConsultaMenu ? 'visible' : 'hidden'}"
+      #grdConsultaMenu
+      id="grdConsultaMenu"
+      [dataSource]="consultaMenu"
+      [showBorders]="true"
+      [rowAlternationEnabled]="false"  
+      [(noDataText)]="txtVazioGrid" 
+      [wordWrapEnabled]="true"
+      [errorRowEnabled]="true"
+      [hoverStateEnabled]="true">
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxi-column dataField="nome" caption="Nome" dataType="string" [width]="300"></dxi-column>      
+  </dx-data-grid>
+</div>
+

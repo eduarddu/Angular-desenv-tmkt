@@ -1,0 +1,67 @@
+h1{
+    text-align:center;
+    margin-top: 15px;
+}
+
+.conteudo{
+   
+  
+    
+}
+
+.mat-form-field {
+    margin-left: 30px;
+}
+
+
+#txtTitulo{
+    width: 1000px;
+}
+
+#btnAbrirDemanda{
+   margin: 0px 0px 10px 660px;
+}
+
+.row1{
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    margin-top: 30px;
+}
+
+.row2{
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    text-align: center;
+}
+
+.row3{
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    text-align: center;
+}
+
+.row4{
+    display: flex;
+    align-items:flex-start;
+    text-align: center;
+    padding-left: 432px;
+}
+
+
+
+#btnProcurar
+{
+    position: relative;
+    left: 100px;
+}
+
+.divGrdGetChamado{
+    text-align: center;
+}
+
+.divGrdGetChamadoFalse{
+    text-align: center;
+}

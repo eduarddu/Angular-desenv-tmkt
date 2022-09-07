@@ -1,0 +1,80 @@
+<div class="conteudo">
+    <h1>SIC-Sistemas de Informações Cadastrais</h1>
+    <br>
+    <form action="">
+        <mat-form-field appearance="legacy">
+            <mat-label>Matrícula:</mat-label>
+            <input [(ngModel)]="Matricula" matInput type="text" name="matricula" id="txtMatricula">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Codindi:</mat-label>
+            <input matInput type="text" name="codindi" id="txtCodIndi">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Matricula equipe:</mat-label>
+            <input matInput type="text" name="matriculaEquipe" id="txtMatriculaEquipe">
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="legacy" style="width:400px">
+            <mat-label>Nome:</mat-label>
+            <input [(ngModel)]="Nome"  matInput type="text" name="nome" id="txtNome">
+        </mat-form-field>
+        <br><br>
+        <mat-form-field>
+            <mat-label>CPF:</mat-label>
+            <input matInput type="text" name="cpf" id="txtCpf">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Codigo Acesso(Cracha)</mat-label>
+            <input matInput type="text" name="codigo-acesso" id="codigoAcessoCracha">
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="legacy">
+            <mat-label>Função:</mat-label>
+            <mat-select id="selectFuncao">
+                <mat-option>*</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Status:</mat-label>
+            <mat-select id="selectStatus">
+                <mat-option>*</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="legacy">
+            <mat-label>Login Externo:</mat-label>
+            <input  type="text" name="loginExterno" id="txtLoginExterno" matInput>
+        </mat-form-field>
+        <button (click)="btnPesquisarFuncionario()" mat-raised-button color="primary" id="btnPesquisar">Pesquisar</button>   
+    </form>
+</div>
+<br><br>
+<div id="divConsultaFuncionario" 
+        [ngStyle]="{'visibility': visualizarGrdConsultaFun ? 'visible' : 'hidden'}">
+        <b id="tituloPontoMonitorPlugin"> Consulta Funcionario </b>
+        <dx-data-grid  
+            [ngStyle]="{'visibility': visualizarGrdConsultaFun ? 'visible' : 'hidden'}"
+            #grdConsultaFuncionario
+            id="grdConsultaFuncionario" 
+            [dataSource]="consultaFuncionarioArray" 
+            [rowAlternationEnabled]="true" 
+            [showBorders]="true"
+            [(noDataText)]="txtVazioGrid"  
+            [wordWrapEnabled]="true"
+            >        
+           <!-- <dxo-export [enabled]="true"></dxo-export> --> 
+            <dxo-paging [pageSize]="10"> </dxo-paging>
+            <dxi-column dataField="Matricula" caption="MATRICULA" dataType="string" [width]="90"></dxi-column> 
+            <dxi-column dataField="Dbr" caption="DBR" dataType="string" [width]="200"></dxi-column>
+            <dxi-column dataField="Nome" caption="NOME" dataType="string" [width]="200"></dxi-column>
+            <dxi-column dataField="Funcao" caption="FUNCAO" dataType="string" [width]="170"></dxi-column>
+            <dxi-column dataField="Perfil" caption="PERFIL" dataType="string" [width]="150"></dxi-column>
+            <dxi-column dataField="SiglaStatus" caption="SIGLA_STATUS" dataType="string" [width]="150"></dxi-column>
+            <dxi-column dataField="Status" caption="STATUS" dataType="string" [width]="250"></dxi-column>
+            <dxi-column dataField="Acao" caption="ACAO" dataType="string" [width]="250"></dxi-column>
+            <dxi-column dataField="Superior" caption="SUPERIOR" dataType="string" [width]="250"></dxi-column>
+            <dxi-column dataField="NumCpf" caption="NUMCPF" dataType="string" [width]="250"></dxi-column>
+            <dxi-column dataField="Acesso" caption="ACESSO" dataType="string" [width]="250"></dxi-column>  
+        </dx-data-grid>
+    </div> 

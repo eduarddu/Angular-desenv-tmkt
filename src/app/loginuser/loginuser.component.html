@@ -1,0 +1,36 @@
+<div class="divPrincipalLogin">
+    <div class="divLogin">
+        <mat-card class="CardViewLogin">
+            <h1 class="tituloLogin"><b>DESENV-TMKT</b></h1> 
+            <br>
+            
+            <table class="tbLogin">
+                <tr>
+                    <td>     
+                        <mat-form-field appearance="outline" [style.width.px]=300>
+                            <mat-label >Matrícula</mat-label>  
+                            <input matInput class="inputMatricula" [(ngModel)]="matricula" 
+                                maxlength="8" required="true"> 
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline" [style.width.px]=300>
+                            <mat-label>Senha</mat-label>
+                            <input class="inputSenha" matInput [(ngModel)]="senha" 
+                                type="password" required="true">
+                                <!-- <button mat-icon-button matSuffix (click)="olharSenha = !olharSenha" 
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="olharSenha">
+                                    <mat-icon>{{olharSenha ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button> -->
+                          </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+            
+            <br> 
+            <button mat-stroked-button class="btnLogin" (click)="loginUser() " >Login</button>
+        </mat-card>
+    </div>
+</div>

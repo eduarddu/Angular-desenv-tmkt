@@ -1,0 +1,117 @@
+<form>
+    
+    <div class="cabecalho">
+        <img src="/assets/topo_imagem.gif" alt="">
+        <h4 class="titulo">SIC - Sistemas de Informações Cadastrais</h4>
+        <br class="clear">
+        <p class="p2"></p>
+    </div>
+   <div id="centro">
+      <div id="menu">    
+      </div>
+      <div id="conteudo">
+        <h3 class="pagTitulo">Cadastro de Páginas de Menu</h3>
+        <input type="button" value="<<dxi-column Voltar" class="btnVoltar">
+          <div id="cadastro-user">
+            <fieldset>
+                <legend>
+                    <h2 class="legendCad">Cadastro Menu</h2>
+                </legend>
+                    <br class="clear">
+                    <span>
+                        <h1 class="label">Nome:</h1>
+                    </span>
+                    <input type="text" name="txtNomeMenu" id="txtInput" [(ngModel)]="setCadastro.nome">
+                    <br class="clear">
+                    <input (click)="insereMenu(setCadastro.nome)" type="button" value="Gravar" class="btnGravarMenu">
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <h2 class="legendCad">Cadastro de Páginas</h2>
+                </legend>
+                <br class="clear">
+                <span>
+                    <h1 class="label">Nome:</h1>
+                </span>
+                <input type="text" name="txtNomeCad" class="txtInput" [(ngModel)]="setCadastroPag.Nome">
+                <span>
+                    <h1 class="label">Endereço:</h1>
+                </span>
+                <input type="text" name="txtEndCad"  class="txtInputEnd" [(ngModel)]="setCadastroPag.Endereco">
+                <br class="clear">
+                <span>
+                   <h1 class="label">Menu:</h1>
+                </span>
+                <select name="txtMenu"  class="txtInputEnd">
+                    <ul *ngFor="let teste of consultaMenu">
+
+                    </ul>
+                <input type="button" value="Gravar" class="btnGravarMenu" (click)="inserePagina(setCadastroPag.Nome,setCadastroPag.Endereco,setCadastroPag.Menu)">
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <h2 class="legendCad">Pesquisa</h2>
+                </legend>
+                <br class="clear">
+                <h1 class="label">Buscar:</h1>
+                <table class="rbl" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #555; width:200px; height:1px;">
+                                <input type="radio" name="rblOpcao" id="rblOpcao0" value="Página">
+                                <label for="rblOpcao">Página</label> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #555; width:200px ">
+                                <input type="radio" name="rblOpcao" id="rblOpcao0" value="Página">
+                                <label for="rblOpcao">Menu</label>
+                            </td>
+                        </tr>    
+                    </tbody>
+                </table>
+                <input type="button" value="Gravar" class="btnGravarMenu" (click)="consulta()">
+            </fieldset>
+          
+          </div>
+      </div>
+
+      <br><br>
+
+      <div id="divGrdConsultaPagina"
+        [ngStyle]="{'visibility': visualizarGrdConsultaPagina ? 'visible' : 'hidden'}">  
+        <b id="grdTitulo">Consuta Página</b>
+        <dx-data-grid id="grdConsultaPagina" style=" margin: 0 auto;"
+            [ngStyle]="{'visibility': visualizarGrdConsultaPagina ? 'visible' : 'hidden'}"
+            #grdConsultaPagina
+            id="grdConsultaPagina"
+            [dataSource]="consultaPag" 
+            [showBorders]="true"
+            [rowAlternationEnabled]="true"  
+            [(noDataText)]="txtVazioGrid" 
+            [wordWrapEnabled]="true"
+            >
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxi-column dataField="PagNome" caption="Nome" dataType="string" [width]="300"></dxi-column>
+            <dxi-column dataField="PagEndereco" caption="Endereço" dataType="string" [width]="300"></dxi-column>
+        </dx-data-grid>
+      </div>
+
+      <div id="divGrdConsultaMenu"
+        [ngStyle]="{'visibility': visualizarGrdConsultaPagina ? 'visible' : 'hidden'}">
+        <b>Consulta Menu</b>
+        <dx-data-grid id="grdConsultaMenu" style="margin: 0 auto;"
+            [ngStyle]="{'visibility': visualizarGrdConsultaPagina ? 'visible' : 'hidden'}"
+            #grdConsultaMenu
+            id="grdConsultaMenu"
+            [dataSource]="consultaMenu"
+            >
+            <dxi-column dataField="nome" caption="Nome" dataType="string" [width]="300"></dxi-column>
+            
+        </dx-data-grid>
+      </div>
+
+
+   </div>
+</form>
