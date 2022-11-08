@@ -7,6 +7,7 @@ import { ConsultaFuncionarioComponent } from './telas/consulta-funcionario/consu
 import { AbrirDemandaComponent } from './desenv/abrir-demanda/abrir-demanda.component';
 import { LoginuserComponent } from './loginuser/loginuser.component';
 import { AbrirDemanda2Component } from './desenv/abrir-demanda2/abrir-demanda2.component';
+import { TesteRowComponent } from './teste-row/teste-row.component';
 
 
 
@@ -16,7 +17,7 @@ const routes: Routes = [
   {path: 'consulta-funcionario', component: ConsultaFuncionarioComponent},
   {path: 'abrir-demanda', component: AbrirDemandaComponent},
   {path: '', component: LoginuserComponent},
-  
+  {path: 'teste', component: TesteRowComponent}
 ];
 
 @NgModule({

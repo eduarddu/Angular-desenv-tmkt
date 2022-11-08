@@ -1,31 +1,32 @@
-import { Injectable } from '@angular/core'; 
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError,BehaviorSubject } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { GetEncerraChamado } from '../model/GetEncerraChamado';
+import { Desenvolvedor } from '../model/Desenvolvedor';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
+export class DesenvolvedorService 
+{
 
-export class GetEncerraChamadoService{
     url = 'https://localhost:44350';
 
-    constructor(private http: HttpClient){
+  constructor(private http: HttpClient) { }
 
-    }
-
-    httpOptions = {
+      httpOptioons = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json'})
     }
 
-    GetEncerraChamado(usuario: any){
-        return this.http.get<GetEncerraChamado[]>(this.url+
-            '/GetEncerraChamado?usuario='+usuario).pipe(
-                retry(2),
-                catchError(this.handleError)
-            )
+    GetConsultaDev()
+    {
+      return this.http.get<Desenvolvedor[]>(this.url +
+        '/Desenvolvedor/GetConsultaDEV')
+        .pipe(
+            retry(2),
+            catchError(this.handleError)
+        )
     }
 
     handleError(error: HttpErrorResponse) 
@@ -41,4 +42,6 @@ export class GetEncerraChamadoService{
     console.log(errorMessage);
     return throwError(errorMessage);
     };
+    
 }
+

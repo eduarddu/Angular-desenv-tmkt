@@ -7,8 +7,7 @@ import { ConsultaAppService } from 'src/app/services/ConsultaApp.services';
 
 import { ConsultaTemaChamadoApp } from 'src/app/model/ConsultaTemaChamadoApp';
 import { ConsultaTemaChamadoAppService } from 'src/app/services/ConsultaTemaChamadoApp.service';
-import { AbreChamado } from 'src/app/model/AbreChamado';
-import { AbreChamadoService } from 'src/app/services/AbreChamado.service';
+
 
 import { LoginuserComponent } from 'src/app/loginuser/loginuser.component';
 import { ValidaAcesso } from 'src/app/model/ValidaAcesso';
@@ -16,6 +15,8 @@ import { ValidaAcessoService } from 'src/app/services/ValidaAcesso.service';
 
 import { GetChamado } from 'src/app/model/GetChamado';
 
+import { AbreChamado } from 'src/app/model/AbreChamado';
+import { AbreChamadoService } from 'src/app/services/AbreChamado.service';
 
 @Component({
   selector: 'app-abrir-demanda2',
@@ -47,7 +48,7 @@ export class AbrirDemanda2Component implements OnInit {
     private ConsultaTemaChamadoAppService: ConsultaTemaChamadoAppService
     ,private CentroResultadoService: CentroResultadoService
     ,private ConsultaAppService: ConsultaAppService
-    ,private AbreChamadoService: AbreChamadoService
+    
    
     
     ,http: HttpClient
@@ -103,17 +104,6 @@ export class AbrirDemanda2Component implements OnInit {
    
   }
 
-      insereChamado(ctrCodigo:number, agtCodigo:string,  aplCodigo: number, descricao: string, titulo: string){
-          this.setAbreChamado.ctrCodigo = ctrCodigo;
-          this.setAbreChamado.agtCodigo = agtCodigo;
-          this.setAbreChamado.aplCodigo = aplCodigo;
-          this.setAbreChamado.descricao = descricao;
-          this.setAbreChamado.titulo = titulo;
-
-          this.AbreChamadoService.SetAbreChamado
-          (this.setAbreChamado, this.setAbreChamado.ctrCodigo,this.setAbreChamado.agtCodigo
-            ,this.setAbreChamado.aplCodigo,this.setAbreChamado.atcCodigo
-            ,this.setAbreChamado.descricao,this.setAbreChamado.titulo).subscribe(()=> {})
-      }
+    
 
 }

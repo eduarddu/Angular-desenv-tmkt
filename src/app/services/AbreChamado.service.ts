@@ -17,16 +17,25 @@ export class AbreChamadoService {
     }
 
 
-    SetAbreChamado( abreChamado: AbreChamado, ctrCodigo:number, agtCodigo: string, aplCodigo: number, atcCodigo:number, descricao: string, titulo: string)
+    SetAbreChamado(file:any ,ctrCodigo:number, agtCodigo: string, aplCodigo: number, atcCodigo:number, titulo: string,descricao: string)
     {
-        const body = JSON.stringify(abreChamado);
+        //const body = JSON.stringify(abreChamado);
         var headers = new HttpHeaders({
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             "Accept": "application/json",
+             
         })
         return this.http.post<AbreChamado>
-        (this.url+'/AbreChamado/SetAbreChamado?ctrCodigo='+ctrCodigo+'&agtCodigo='+agtCodigo+'&aplCodigo='+aplCodigo+'&atcCodigo=5'+'&descricao='+descricao+'&titulo='+titulo
-        ,body
-        ,{headers:headers})
+        (this.url+'/AbreChamado/SetAbreChamado?ctrCodigo='+ctrCodigo+'&agtCodigo='+agtCodigo+'&aplCodigo='+aplCodigo+'&atcCodigo='+atcCodigo+'&titulo='+titulo+'&descricao='+descricao
+        ,file
+        )
+
+        
     }
+
+    //getChaCodigo(file:any ,ctrCodigo:number, agtCodigo: string, aplCodigo: number, atcCodigo:number, titulo: string,descricao: string, chaCodigo: any)
+    //{
+
+    //}
+
 }

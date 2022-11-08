@@ -1,4 +1,4 @@
 export interface ConsultaApp{
-    aplCodigo: number;
+    aplCodigo: any;
     aplNome: string;
 }

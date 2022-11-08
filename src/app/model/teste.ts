@@ -1,14 +1,15 @@
-export interface GetEncerraChamado
+export interface teste
 {
-    usuario: any;
+    atribuido: boolean;
     chaCodigo: number;
     chaDataAbertura:string;
     chaSolicitante: string;
     tpcDescricao: string;
     cliNome: string;
     aplNome: string;
+    chaPrazo: string;
     anlNome: string;
     chaDescricao: string;
-    chaDataEncerramento:string;
     chaTitulo: string;
+    
 }

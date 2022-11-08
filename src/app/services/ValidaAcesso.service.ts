@@ -23,7 +23,7 @@ import { ValidaAcesso } from '../model/ValidaAcesso';
   
     login(matricula: string, senha: string) 
   {
-    return this.httpClient.get<ValidaAcesso>(this.url + '/ValidaAcesso/SetValidaAcesso?matricula='+matricula+'&senha='+senha)
+    return this.httpClient.get<ValidaAcesso>(this.url + '/ValidaAcesso?matricula='+matricula+'&senha='+senha)
         .pipe(
           retry(2),
           catchError(this.handleError)
@@ -31,8 +31,8 @@ import { ValidaAcesso } from '../model/ValidaAcesso';
   }
 
   islogged() {
-    if (localStorage.getItem('currentUser') != null && localStorage.getItem('currentUser') != ''
-      && localStorage.getItem('currentUser') != 'null' ) {
+    if (localStorage.getItem('MATRICULA') != null && localStorage.getItem('MATRICULA') != ''
+      && localStorage.getItem('MATRICULA') != 'null' ) {
       return true;
     } 
     else {

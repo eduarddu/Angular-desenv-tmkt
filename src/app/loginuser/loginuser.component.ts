@@ -16,9 +16,12 @@ export class LoginuserComponent implements OnInit {
   matricula:string = '';
   senha:string = '';
   private storage: Storage;
-  acesso = {} as ValidaAcesso
+ acesso = {} as ValidaAcesso
+ acessoValLocal = false;
+ acessoArray: ValidaAcesso[] = [];
+ MatriculaArray= localStorage.getItem('MATRICULA');
+ par1!: any;
   
-
 
   constructor(private ValidaAcessoService: ValidaAcessoService,private router: Router) 
    {
@@ -46,12 +49,35 @@ export class LoginuserComponent implements OnInit {
       
         this.ValidaAcessoService.login(this.matricula,this.senha).subscribe((acesso: ValidaAcesso) => {
         localStorage.setItem('MATRICULA',JSON.parse(this.matricula));
-        this.router.navigate(["abrir-demanda"])
+        if (this.ValidaAcessoService.islogged()){
+          this.router.navigate(["abrir-demanda"])
+          
+        }
+        
+      else {
+          
+        }
+       
+        this.matricula = "";
+        this.senha = "";
         
       })
+
+      
      
     }
   }
+
+  //ARMAZENANDO DADOS NA LOCAL STORAGE
+  armazenaDadosLS(par1:any){
+
+    if(par1 == this.MatriculaArray)
+    {
+      console.log(this.acesso)
+    }
+    
+  }
+  
 }
   
 

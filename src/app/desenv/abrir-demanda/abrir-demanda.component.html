@@ -1,159 +1,248 @@
-<h1>DesenvTMKT - Gestão de Atividades do Desenvolvimento</h1>
+
+<div [innerHTML]="testeImgText">
+
+</div>
+
+<h1 (click)="pegaImg()">DesenvTMKT - Gestão de Atividades do Desenvolvimento</h1>
+
+
+<br>
 <br>
 <div class="conteudo">
 
-    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
-            <mat-tab label="Abrir Demanda"> 
-                <div class="contAbrirDemanda">
-                <div class="row1">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Cliente/CR</mat-label>
-                    <mat-select [(ngModel)]="setAbreChamado.ctrCodigo" (click)="getCentroResultado(agtCodigo,tipoBusca,ctrCodigo)">   
+    <mat-tab-group (selectedTabChange)="eventoTab($event)" mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4" id="tab1">
+        <mat-tab label="Abrir Demanda">
+        
+            <div class="contAbrirDemanda">
+            <div class="row1">
+                <mat-form-field  appearance="fill">
+                <mat-label>Cliente/CR</mat-label>
+                    <mat-select [(ngModel)]="setAbreChamado.ctrCodigo" 
+                    (click)="getCentroResultado(agtCodigo,tipoBusca,ctrCodigo)">
                         <mat-option  *ngFor="let resultado of centroResultadoArray" [value]="resultado.ctrCodigo" >{{resultado.ctrDescricao}}</mat-option>
-                            </mat-select>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Aplicação:</mat-label>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Aplicação:</mat-label>
                     <mat-select [(ngModel)]="setAbreChamado.aplCodigo" (click)="getConsultaApp()">
-                            <mat-option *ngFor="let consulta of consultaAppArray" [value]="consulta.aplCodigo" (onSelectionChange)="getConsultaTemaChamadoApp(consulta.aplCodigo)"> {{consulta.aplNome}}</mat-option>
+                        <mat-option *ngFor="let consulta of consultaAppArray" [value]="consulta.aplCodigo" (onSelectionChange)="getConsultaTemaChamadoApp(consulta.aplCodigo)">{{consulta.aplNome}}</mat-option>
                     </mat-select>
-                    </mat-form-field>  
-                    <mat-form-field appearance="fill">
-                        <mat-label>Assunto:</mat-label>
-                    <mat-select>
-                            <mat-option  *ngFor="let consultaTema of consultaTemaChamadoAppArray" [value]="consultaTema.aplCodigo"> {{consultaTema.atcDescricao}}</mat-option>
+                </mat-form-field>  
+                <mat-form-field appearance="fill">
+                    <mat-label>Assunto:</mat-label>
+                    <mat-select [(ngModel)]="consultaTemaChamadoApp.atcCodigo">
+                        <mat-option  *ngFor="let consultaTema of consultaTemaChamadoAppArray" [value]="consultaTema.aplCodigo">{{consultaTema.atcDescricao}}</mat-option>
                     </mat-select>
-                    </mat-form-field>
-                </div>
-                    <br><br>
-                <div class="row2">
-                    <mat-form-field style="width: 600px ;" appearance="fill">
-                        <mat-label>Titulo</mat-label>
-                        <input [(ngModel)]="setAbreChamado.titulo" matInput type="text" name="titulo" id="txtTitulo">
-                    </mat-form-field>
-                </div>
-                    <br>
-                <div class="row3">
-                    <mat-form-field style=" width: 600px;" appearance="fill">
-                        <mat-label>Descrição</mat-label>
-                        <textarea [(ngModel)]="setAbreChamado.descricao" matInput  placeholder="Detalhe o processo" [(ngModel)]="setAbreChamado.descricao" ></textarea>
-                    </mat-form-field>
-                </div>
-                    <br>
-                <div class="row4">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Anexo</mat-label>
-                        <br>
-                        <input matInput type="text" name="anexo" id="txtAnexo">
-                    </mat-form-field>
-                    <br><br>
-                    <button type="button" mat-raised-button id="btnProcurar" (click)="fileInput.click()">Procurar</button>
-                    <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-                </div>
-                <br><br>    
-                    <button (click)="insereChamado
-                    (setAbreChamado.ctrCodigo,setAbreChamado.agtCodigo, 
-                    setAbreChamado.aplCodigo, setAbreChamado.titulo, setAbreChamado.descricao)
-                    "mat-raised-button color="primary" id="btnAbrirDemanda">Abrir Demanda</button>                
-            </div> 
-            </mat-tab>
-
-            <mat-tab label="Acompanhamento"> 
+                </mat-form-field>
+            </div>
+                <br><br>
+            <div class="row2">
+                <mat-form-field style="width: 600px ;" appearance="fill">
+                    <mat-label>Titulo</mat-label>
+                    <input  
+                    [(ngModel)]="setAbreChamado.titulo" 
+                    matInput type="text"><br>
+                </mat-form-field>
+            </div>
                 <br>
-                <div class="divGrdGetChamado"  [ngStyle]="{'visibility': visualizarGrdGetChamado ? 'visible' : 'hidden'}"> 
-                    <b class="grdTitulo"></b>
-                    <dx-data-grid id="grdGetChamado" style=" margin: 0 auto;"
-                        [ngStyle]="{'visibility': visualizarGrdGetChamado ? 'visible' : 'hidden'}"
-                        #grdGetChamado
-                        id="grdGetChamado"
-                        [dataSource]="getChamadoA" 
-                        [showBorders]="true"
-                        [rowAlternationEnabled]="false"  
-                        [(noDataText)]="txtVazioGrid" 
-                        [wordWrapEnabled]="true"
-                        [errorRowEnabled]="true"
-                        [hoverStateEnabled]="true">  
-                        <dxo-paging [pageSize]="10"></dxo-paging>
-                        <dxi-column dataField="chaCodigo" caption="Id" dataType="number" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaDataAbertura" caption="Data" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaSolicitante" caption="Solicitante" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="tpcDescricao" caption="Tipo" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="cliNome" caption="Cliente" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="aplNome" caption="Aplicação" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaTitulo" caption="Titulo" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="anlNome" caption="Desenvolvedor" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaPrazo" caption="Prazo" dataType="string" [width]="150"></dxi-column>
-                    </dx-data-grid>
-                    <br>
-                    <button mat-raised-button color="primary" id="btnAcompanhamento" (click)="geraGridGetChamado(atribuido = true)">Teste</button>
-                </div>
-                <br>
-            </mat-tab>
-
-            <mat-tab label="Demandas Abertas">  
-                <br>
-                <div class="divGrdGetChamadoFalse"  [ngStyle]="{'visibility': visualizarGrdGetChamadoFalse ? 'visible' : 'hidden'}"> 
-                    <b class="grdTituloFalse"></b>
-                    <dx-data-grid id="grdGetChamadoFalse" style=" margin: 0 auto;"
-                        [ngStyle]="{'visibility': visualizarGrdGetChamadoFalse ? 'visible' : 'hidden'}"
-                        #grdGetChamado
-                        id="grdGetChamadoFalse"
-                        [dataSource]="getChamadoAF" 
-                        [showBorders]="true"
-                        [rowAlternationEnabled]="false"  
-                        [(noDataText)]="txtVazioGrid" 
-                        [wordWrapEnabled]="true"
-                        [errorRowEnabled]="true"
-                        [hoverStateEnabled]="true">  
-                        <dxo-paging [pageSize]="10"></dxo-paging>
-                        <dxi-column dataField="chaCodigo" caption="Id" dataType="number" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaDataAbertura" caption="Data" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaSolicitante" caption="Solicitante" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="tpcDescricao" caption="Tipo" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="cliNome" caption="Cliente" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="aplNome" caption="Aplicação" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaTitulo" caption="Titulo" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="anlNome" caption="Desenvolvedor" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaPrazo" caption="Prazo" dataType="string" [width]="150"></dxi-column>
-                    </dx-data-grid>
-                    <br>    
-                    <button mat-raised-button color="primary" id="btnAcompanhamento" (click)="geraGridGetChamadoFalse(atribuidoFalse)">Teste</button>
-                </div>
-                <br>    
-            </mat-tab>
-
-            <mat-tab label="Histórico">
-                <br>
-                <div class="divGrdHistorico" [ngStyle]="{'visibility': vusualizarGrdHistorico ? 'visible' : 'hidden'}">
-                    <b class="grdHistorico"></b>
-                    <dx-data-grid id="grdHistorico" style=" margin: 0 auto;"
-                        [ngStyle]="{'visibility': vusualizarGrdHistorico ? 'visible' : 'hidden'}"
-                        #grdHistorico
-                        id="grdHistorico"
-                        [dataSource]="getEncerraChamado" 
-                        [showBorders]="true"
-                        [rowAlternationEnabled]="false"  
-                        [(noDataText)]="txtVazioGrid" 
-                        [wordWrapEnabled]="true"
-                        [errorRowEnabled]="true"
-                        [hoverStateEnabled]="true">  
-                        <dxo-paging [pageSize]="10"></dxo-paging>
-                        <dxi-column dataField="chaCodigo" caption="Id" dataType="number" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaDataAbertura" caption="Data" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaSolicitante" caption="Solicitante" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="tpcDescricao" caption="Tipo" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="cliNome" caption="Cliente" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="aplNome" caption="Aplicação" dataType="string" [width]="150"></dxi-column>
-                        <dxi-column dataField="chaDataEncerramento" caption="Encerramento" dataType="string" [width]="150"></dxi-column>
-
+            <div class="row3">
+                
+                <dx-html-editor style="width:550px ;"  [(ngModel)]="setAbreChamado.descricao" 
+                    placeholder="Detalhe o processo">
+                    <dxo-image-upload  [tabs]="currentTab" fileUploadMode="base64">
+                    </dxo-image-upload>
+                    <dxo-media-resizing [enabled]="true"> </dxo-media-resizing>
+                    
                        
-                    </dx-data-grid>
-                    <br>    
-                   
-
-                </div>
-                <button mat-raised-button color="primary" id="btnAcompanhamento" (click)="geraGridEncerraChamado(usuario)">Teste</button>
-            </mat-tab>
-      </mat-tab-group>    
-   
+                </dx-html-editor>                
+            </div>
+                <br>
+            <div class="row4">
+                <br><br>
+                <input  type="file" id="file" aria-label="File browser example" (change)="selectFile($event)">
+            </div>
+            <br><br>
+            <div class="btnDemanda">   
+                <button (click)="insereChamado
+                (setAbreChamado.ctrCodigo,setAbreChamado.agtCodigo, 
+                setAbreChamado.aplCodigo, setAbreChamado.atcCodigo, setAbreChamado.titulo, setAbreChamado.descricao)"
+                (click)=" upload()"
+                 mat-raised-button color="primary" id="btnAbrirDemanda">Abrir Demanda</button>
+            </div>
+            <br><br>       
+        </div>
+    
+        </mat-tab>
+        <mat-tab label="Acompanhamento" id={{tabAcompanhamento}}> 
+            <br>
+            <div  class="divGrdGetChamado"  [ngStyle]="{'visibility': visualizarGrdGetChamado ? 'visible' : 'hidden'}"> 
+                <b class="grdTitulo"></b>
+                <dx-data-grid id="grdGetChamado" style=" margin: 0 auto;"
+                    [ngStyle]="{'visibility': visualizarGrdGetChamado ? 'visible' : 'hidden'}"
+                    #grdGetChamado
+                    id="grdGetChamado"  
+                    [dataSource]="getChamadoA"
+                    keyExpr="chaCodigo" 
+                    [repaintChangesOnly]="true"
+                    [showBorders]="true"
+                    [selectedRowKeys]="[]"
+                    (onRowExpanded)="onRowExpandedTrue()"
+                    (onSelectionChanged)="onRowExpandedTrue()">  
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-selection mode="single"></dxo-selection>
+                    <dxi-column   dataField="chaCodigo" caption="Id" dataType="number" [width]="150"  [fixed]="true"></dxi-column>>
+                    <dxi-column dataField="chaDataAbertura" caption="Data" dataType="string" [width]="150"  [fixed]="true"></dxi-column>>
+                    <dxi-column dataField="chaSolicitante" caption="Solicitante" dataType="string" [width]="150"  [fixed]="true"></dxi-column>
+                    <dxi-column dataField="cliNome" caption="Cliente" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxi-column dataField="aplNome" caption="Aplicação" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxi-column dataField="chaTitulo" caption="Titulo" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxi-column dataField="anlNome" caption="Desenvolvedor" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxi-column dataField="chaPrazo" caption="Prazo" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxo-master-detail   [enabled]="true" template="detail"></dxo-master-detail>
+                    <div *dxTemplate="let detail of 'detail'">
+                        <div class="DescDetail">
+                            <label for="">Descrição</label>
+                            <div id="txtDescDetail" [innerHTML]="descricaoAtu"></div>
+                            </div>
+                               <dx-button id="btnDownloadAnex" 
+                                 class="btnDownloadAnex"  text="Download Anexos"></dx-button>
+                            <div class="descAtua">
+                        </div>
+                        <div class="descAtua">
+                            <label for="">Atualização</label>
+                            <br><br>
+                            <mat-radio-group [(ngModel)]="opcaoRadio">
+                                <mat-radio-button value="1" color="primary">Atualizar Status</mat-radio-button>
+                                <mat-radio-button value="2" color="primary" style="padding-left: 25px;">Encerrar Chamado</mat-radio-button>
+                            </mat-radio-group>
+                            <br>
+                            <div class="formDeatil">
+                                <mat-form-field>
+                                    <mat-label style="margin-right: 8px;">Responsável</mat-label>
+                                    <mat-select (click)="getConsultaDev()"  [(ngModel)]="consultaDevObj.nrreg" >
+                                        <mat-option (click)="getConsultaDev()"  *ngFor="let dev of consultaDevArray" [value]="dev.nrreg"> {{dev.nomeAbrev}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Novo prazo</mat-label>
+                                    <input #DtPrazo matInput [matDatepicker]="picker">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                <br><br>
+                                <input style="float: left; margin-left: 30px;" type="file" id="file" aria-label="File browser example" (change)="selectFile($event)">
+                                <br><br><br><br>
+                                <div class="btnInv">
+                                    <button id="btnInvRadio" *ngIf="opcaoRadio == '1';"  (click)="atualizaChamado(chacodigo,status,agtCodigoDev,DtPrazo.value)" mat-raised-button color="primary">Salvar</button>
+                                    <button id="btnInvRadio" *ngIf="opcaoRadio == '2';"  (click)="EncerraChamado(chaCodigoEnc,statusEnc)"  mat-raised-button color="primary">Encerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dx-data-grid>
+                <br>
+            </div>
+            <br>
+        </mat-tab>
+        <mat-tab label="Demandas Abertas">
+            <br>
+            <div  class="grdGetChamadoFalse"  [ngStyle]="{'visibility': visualizarGrdGetChamadoFalse ? 'visible' : 'hidden'}"> 
+                <b class="grdTitulo"></b>
+                <dx-data-grid id="grdGetChamadoFalse" style=" margin: 0 auto;"
+                    [ngStyle]="{'visibility': visualizarGrdGetChamadoFalse ? 'visible' : 'hidden'}"
+                    #grdGetChamadoFalse
+                    id="grdGetChamadoFalse"  
+                    [dataSource]="getChamadoAF"
+                    keyExpr="chaCodigo"
+                    [hoverStateEnabled]="true"
+                    [repaintChangesOnly]="true"
+                    [showBorders]="true"
+                    [selectedRowKeys]="[]"
+                    [columnAutoWidth]="true"
+                    (onRowExpanded)="onRowExpanded()"
+                    (onSelectionChanged)="onRowExpanded()">  
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-selection mode="single"></dxo-selection>
+                    <dxi-column   dataField="chaCodigo" caption="Id" dataType="number" [width]="150"  [fixed]="true"></dxi-column>>
+                    <dxi-column dataField="chaDataAbertura" caption="Data" dataType="string" [width]="150"  [fixed]="true"></dxi-column>>
+                    <dxi-column dataField="chaSolicitante" caption="Solicitante" dataType="string" [width]="150"  [fixed]="true"></dxi-column>
+                    <dxi-column dataField="cliNome" caption="Cliente" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxi-column dataField="aplNome" caption="Aplicação" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxi-column dataField="chaTitulo" caption="Titulo" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxi-column dataField="anlNome" caption="Desenvolvedor" dataType="string" [width]="150" [fixed]="true"></dxi-column>
+                    <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+                    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+                    <div *dxTemplate="let employee of 'detail'">
+                        <div class="DescDetail">
+                            <label for="">Descrição</label>
+                            <div id="txtDescDetail" [innerHTML]="descricaoAtu"></div> 
+                        </div>
+                        
+                            <dx-button  class="btnDownloadAnex"  text="Download Anexos"></dx-button>
+                        <div class="descAtua">
+                            <label id="labelAtuali" for="">Atualização</label>
+                            <br><br>
+                            <div id="RadioGp">
+                                <mat-radio-group  [(ngModel)]="opcaoRadio">
+                                    <mat-radio-button value="1" color="primary">Atualizar Status</mat-radio-button>
+                                    <mat-radio-button value="2" color="primary" style="padding-left: 25px;">Encerrar Chamado</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <br>
+                            <div class="formDeatil">
+                                <mat-form-field>
+                                    <mat-label style="margin-right: 8px;">Responsável</mat-label>
+                                    <mat-select (click)="getConsultaDev()" [(ngModel)]="consultaDevObj.nrreg" >
+                                        <mat-option  *ngFor="let dev of consultaDevArray" [value]="dev.nrreg"> {{dev.nomeAbrev}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Novo prazo</mat-label>
+                                    <input #DtPrazo matInput [matDatepicker]="picker">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                <br><br>
+                                <input style="float: left; margin-left: 30px;" type="file" id="file" aria-label="File browser example" (change)="selectFile($event)">
+                                <br><br><br><br>
+                                <div class="btnInv">
+                                    <button id="btnInvRadio" *ngIf="opcaoRadio == '1';"  (click)="atualizaChamado(chacodigo,status,agtCodigoDev,DtPrazo.value)" mat-raised-button color="primary">Salvar</button>
+                                    <button id="btnInvRadio" *ngIf="opcaoRadio == '2';"  (click)="EncerraChamado(chaCodigoEnc,statusEnc)"  mat-raised-button color="primary">Encerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dx-data-grid>
+                <br>    
+            </div>
+            <br>    
+        </mat-tab>
+        <mat-tab label="Histórico">
+            <br>
+            <div class="divGrdHistorico" [ngStyle]="{'visibility': vusualizarGrdHistorico ? 'visible' : 'hidden'}">
+                <b class="grdHistorico"></b>
+                <dx-data-grid id="grdHistorico" style=" margin: 0 auto;"
+                    [ngStyle]="{'visibility': vusualizarGrdHistorico ? 'visible' : 'hidden'}"
+                    #grdHistorico
+                    id="grdHistorico"
+                    [dataSource]="getEncerraChamado" 
+                    [showBorders]="true"
+                    [rowAlternationEnabled]="false"  
+                    [(noDataText)]="txtVazioGrid" 
+                    [wordWrapEnabled]="true"
+                    [errorRowEnabled]="true"
+                    [hoverStateEnabled]="true">  
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxi-column dataField="chaCodigo" caption="Id" dataType="number" [width]="150"></dxi-column>
+                    <dxi-column dataField="chaDataAbertura" caption="Data" dataType="string" [width]="150"></dxi-column>
+                    <dxi-column dataField="chaSolicitante" caption="Solicitante" dataType="string" [width]="150"></dxi-column>
+                    <dxi-column dataField="tpcDescricao" caption="Tipo" dataType="string" [width]="150"></dxi-column>
+                    <dxi-column dataField="cliNome" caption="Cliente" dataType="string" [width]="150"></dxi-column>
+                    <dxi-column dataField="aplNome" caption="Aplicação" dataType="string" [width]="150"></dxi-column>
+                    <dxi-column dataField="chaDataEncerramento" caption="Encerramento" dataType="string" [width]="150"></dxi-column>  
+                </dx-data-grid>
+                <br>    
+            </div>
+        </mat-tab>
+    </mat-tab-group> 
 </div>

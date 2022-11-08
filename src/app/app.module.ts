@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { DevExtremeModule } from 'devextreme-angular';
+import { DevExtremeModule, DxDataGridModule, DxFormModule, DxSelectBoxModule, DxTabPanelModule, DxButtonModule  } from 'devextreme-angular';
 import { AngularMaterialComponent } from './telas/angular-material/angular-material.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -23,6 +23,26 @@ import { LoginuserComponent } from './loginuser/loginuser.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AbrirDemanda2Component } from './desenv/abrir-demanda2/abrir-demanda2.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import {MatIconModule} from '@angular/material/icon';
+import { DxHtmlEditorModule, DxCheckBoxModule, DxListModule } from 'devextreme-angular';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+
+
+
+
+
+
+import DataSource from 'devextreme/data/data_source';
+import { TesteRowComponent } from './teste-row/teste-row.component';
+
+
+
+
+
+
 
 
 
@@ -42,7 +62,7 @@ import { AbrirDemanda2Component } from './desenv/abrir-demanda2/abrir-demanda2.c
     ConsultaFuncionarioComponent,
     AbrirDemandaComponent,
     LoginuserComponent,
-    AbrirDemanda2Component
+    TesteRowComponent
   ],
   imports: [
     BrowserModule,
@@ -58,10 +78,23 @@ import { AbrirDemanda2Component } from './desenv/abrir-demanda2/abrir-demanda2.c
     MatRadioModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatTabsModule
-
+    MatTabsModule,
+    FileUploadModule,
+    NgxMatFileInputModule,
+    MatIconModule,
+    DxDataGridModule,
+    DxFormModule,
+    DxSelectBoxModule,
+    DxTabPanelModule,
+    DxSelectBoxModule,
+    DxListModule,
+    DxHtmlEditorModule, 
+    DxCheckBoxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    DxButtonModule,
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

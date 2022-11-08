@@ -9,6 +9,7 @@ export interface GetChamado
     aplNome: string;
     chaPrazo: string;
     anlNome: string;
+    chaDescricao: string;
     chaTitulo: string;
     
 }

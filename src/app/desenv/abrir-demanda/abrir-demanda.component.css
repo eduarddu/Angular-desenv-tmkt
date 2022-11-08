@@ -1,11 +1,10 @@
 h1{
     text-align:center;
-    margin-top: 15px;
+    margin-top: 45px;
+    font-style: oblique;
 }
 
 .conteudo{
-   
-  
     
 }
 
@@ -13,13 +12,18 @@ h1{
     margin-left: 30px;
 }
 
-
 #txtTitulo{
     width: 1000px;
 }
 
-#btnAbrirDemanda{
-   margin: 0px 0px 10px 660px;
+.btnDemanda{
+    position: relative;
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding-left: 0px;
+    text-align: center;
 }
 
 .row1{
@@ -45,12 +49,11 @@ h1{
 
 .row4{
     display: flex;
+    justify-content: center;
     align-items:flex-start;
     text-align: center;
-    padding-left: 432px;
+    padding-right: 297px;
 }
-
-
 
 #btnProcurar
 {
@@ -64,4 +67,128 @@ h1{
 
 .divGrdGetChamadoFalse{
     text-align: center;
+    
 }
+
+.divGrdHistorico{
+    text-align: center;
+}
+
+.validação-erro{
+    color: #dc3545;
+    margin-top: .4em;
+    border-left: 3px solid #dc3545;
+    padding-left: 0.2em;
+}
+
+input {
+    margin-top: 1rem;
+}
+
+input::file-selector-button {
+    font-weight: bold;
+    color:#1b5e20;
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 3px;
+}
+
+.md-datepicker-input-container {
+    width: 300px;
+}
+
+
+#DescDetail
+{
+    padding-left: 40px;
+    
+}
+
+.radioAtu{
+    margin-bottom: 60px;
+    padding-right: 0px;
+}
+
+.SelectBoxAtu{
+    display: flex;
+    /* text-align: center; */
+    align-items: center;
+}
+
+.txtAtu{
+margin-bottom: -55px;
+}
+
+.btnSalvar{
+    padding-right: 235px;
+    margin-top: 11px;
+}
+
+.DescDetail
+{
+    padding-left: 30px;
+    display: inline-block;
+    overflow-x:scroll;
+    width: 750px;
+    height: 400px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;     
+}
+
+/*
+.DescDetail #txtDescDetail {
+    max-width: 1000px;     
+}
+*/
+
+.descAtua
+{
+    display: inline-block;
+    margin-left: 160px;
+    vertical-align: top;
+}
+
+.consultaDev
+{
+    display: inline-block;
+    /* margin-left: 250px; */
+    vertical-align: top;
+}
+
+.btnDownload
+{
+    display: inline-block;
+}
+
+.btnDownloadAnex
+{
+    margin-top: 102px;
+    position: relative;
+    right: 468px;
+}
+
+.formDeatil{
+    position: relative;
+    right: 31px;
+}
+
+#btnInvRadio{
+    float: right;
+    margin: 11px 25px;
+    width: 25em;
+}
+
+#labelAtuali{
+    padding-bottom: 15px;
+    font-family: 'Sen', sans-serif;
+}
+
+#RadioGp
+{
+    padding-bottom: 20px;;
+}
+
+
+img { width: 100px; height: 100px; }
+
+

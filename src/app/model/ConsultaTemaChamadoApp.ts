@@ -3,6 +3,6 @@ export interface ConsultaTemaChamadoApp {
     aplCodigo: number;
 
     //COLUNAS
-    atcCodigo: number;
+    atcCodigo: any;
     atcDescricao: string;
 }
