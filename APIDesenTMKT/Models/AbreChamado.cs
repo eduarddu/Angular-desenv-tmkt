@@ -24,7 +24,7 @@ namespace APIDesenTMKT.Models
 
         public (string fillType, byte[] archiveData, string achiveName) DowloadZip(string directoryName)
         {
-            var fileName = "teste.zip";
+            var fileName = "SeuAnexo.zip";
             var files = Directory.GetFiles(Path.Combine(_env.ContentRootPath, directoryName)).ToList();
             using (var memoryStream = new MemoryStream())
             {
