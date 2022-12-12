@@ -23,7 +23,7 @@ import { ValidaAcesso } from '../model/ValidaAcesso';
   
     login(matricula: string, senha: string) 
   {
-    return this.httpClient.get<ValidaAcesso>(this.url + '/ValidaAcesso?matricula='+matricula+'&senha='+senha)
+    return this.httpClient.get<ValidaAcesso>(this.url + '/ValidaAcesso/getValidaAcesso?AgtCodigo='+matricula+'&Senha='+senha)
         .pipe(
           retry(2),
           catchError(this.handleError)

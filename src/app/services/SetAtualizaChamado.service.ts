@@ -26,6 +26,6 @@ export class AtualizaChamadoService {
         })
         return this.http.post<AtualizaChamado>(this.url+'/SetAtualizaChamado/SetAtualizaChamado?chacodigo='+chacodigo+'&status='+status+'&agtcodigo='+agtCodigo+'&prazo='+prazo
         ,body
-        ,{headers:headers})    }
+        ,{headers:headers})    } 
 
 }

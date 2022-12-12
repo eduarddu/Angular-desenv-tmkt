@@ -85,12 +85,11 @@
                     keyExpr="chaCodigo" 
                     [repaintChangesOnly]="true"
                     [showBorders]="true"
-                    [selectedRowKeys]="[]"
-                    (onRowExpanded)="onRowExpandedTrue()"
-                    (onSelectionChanged)="onRowExpandedTrue()">  
+                    [columnAutoWidth]="true"
+                    (onSelectionChanged)="selectionChangedTrue($event)">  
                     <dxo-paging [pageSize]="10"></dxo-paging>
                     <dxo-selection mode="single"></dxo-selection>
-                    <dxi-column   dataField="chaCodigo" caption="Id" dataType="number" [width]="150"  [fixed]="true"></dxi-column>>
+                    <dxi-column  dataField="chaCodigo" caption="Id" dataType="number" [width]="150"  [fixed]="true"></dxi-column>>
                     <dxi-column dataField="chaDataAbertura" caption="Data" dataType="string" [width]="150"  [fixed]="true"></dxi-column>>
                     <dxi-column dataField="chaSolicitante" caption="Solicitante" dataType="string" [width]="150"  [fixed]="true"></dxi-column>
                     <dxi-column dataField="cliNome" caption="Cliente" dataType="string" [width]="150" [fixed]="true"></dxi-column>
@@ -98,13 +97,13 @@
                     <dxi-column dataField="chaTitulo" caption="Titulo" dataType="string" [width]="150" [fixed]="true"></dxi-column>
                     <dxi-column dataField="anlNome" caption="Desenvolvedor" dataType="string" [width]="150" [fixed]="true"></dxi-column>
                     <dxi-column dataField="chaPrazo" caption="Prazo" dataType="string" [width]="150" [fixed]="true"></dxi-column>
-                    <dxo-master-detail   [enabled]="true" template="detail"></dxo-master-detail>
+                    <dxo-master-detail   [enabled]="false" template="detail"></dxo-master-detail>
                     <div *dxTemplate="let detail of 'detail'">
                         <div class="DescDetail">
                             <label for="">Descrição</label>
                             <div id="txtDescDetail" [innerHTML]="descricaoAtu"></div>
                             </div>
-                               <dx-button id="btnDownloadAnex" 
+                               <dx-button id="btnDownloadAnex"  (click)="download(chaCodigo)"
                                  class="btnDownloadAnex"  text="Download Anexos"></dx-button>
                             <div class="descAtua">
                         </div>
@@ -130,10 +129,10 @@
                                     <mat-datepicker #picker></mat-datepicker>
                                 </mat-form-field>
                                 <br><br>
-                                <input style="float: left; margin-left: 30px;" type="file" id="file" aria-label="File browser example" (change)="selectFile($event)">
+                                <input style="float: left; margin-left: 30px;" type="file" id="file" aria-label="File browser example" (change)="selectFile2($event)">
                                 <br><br><br><br>
                                 <div class="btnInv">
-                                    <button id="btnInvRadio" *ngIf="opcaoRadio == '1';"  (click)="atualizaChamado(chacodigo,status,agtCodigoDev,DtPrazo.value)" mat-raised-button color="primary">Salvar</button>
+                                    <button id="btnInvRadio" *ngIf="opcaoRadio == '1';" (click)=" upload()"  (click)="atualizaChamado(chacodigo,status,agtCodigoDev,DtPrazo.value)" mat-raised-button color="primary">Salvar</button>
                                     <button id="btnInvRadio" *ngIf="opcaoRadio == '2';"  (click)="EncerraChamado(chaCodigoEnc,statusEnc)"  mat-raised-button color="primary">Encerrar</button>
                                 </div>
                             </div>
@@ -157,10 +156,8 @@
                     [hoverStateEnabled]="true"
                     [repaintChangesOnly]="true"
                     [showBorders]="true"
-                    [selectedRowKeys]="[]"
                     [columnAutoWidth]="true"
-                    (onRowExpanded)="onRowExpanded()"
-                    (onSelectionChanged)="onRowExpanded()">  
+                    (onSelectionChanged)="selectionChanged($event)">  
                     <dxo-paging [pageSize]="10"></dxo-paging>
                     <dxo-selection mode="single"></dxo-selection>
                     <dxi-column   dataField="chaCodigo" caption="Id" dataType="number" [width]="150"  [fixed]="true"></dxi-column>>
@@ -170,7 +167,7 @@
                     <dxi-column dataField="aplNome" caption="Aplicação" dataType="string" [width]="150" [fixed]="true"></dxi-column>
                     <dxi-column dataField="chaTitulo" caption="Titulo" dataType="string" [width]="150" [fixed]="true"></dxi-column>
                     <dxi-column dataField="anlNome" caption="Desenvolvedor" dataType="string" [width]="150" [fixed]="true"></dxi-column>
-                    <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+                    <dxo-master-detail [enabled]="false" template="detail"></dxo-master-detail>
                     <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
                     <div *dxTemplate="let employee of 'detail'">
                         <div class="DescDetail">
@@ -178,7 +175,7 @@
                             <div id="txtDescDetail" [innerHTML]="descricaoAtu"></div> 
                         </div>
                         
-                            <dx-button  class="btnDownloadAnex"  text="Download Anexos"></dx-button>
+                            <dx-button (click)="download(chaCodigo)"  class="btnDownloadAnex"  text="Download Anexos"></dx-button>
                         <div class="descAtua">
                             <label id="labelAtuali" for="">Atualização</label>
                             <br><br>
@@ -206,7 +203,7 @@
                                 <input style="float: left; margin-left: 30px;" type="file" id="file" aria-label="File browser example" (change)="selectFile($event)">
                                 <br><br><br><br>
                                 <div class="btnInv">
-                                    <button id="btnInvRadio" *ngIf="opcaoRadio == '1';"  (click)="atualizaChamado(chacodigo,status,agtCodigoDev,DtPrazo.value)" mat-raised-button color="primary">Salvar</button>
+                                    <button id="btnInvRadio" *ngIf="opcaoRadio == '1';"   (click)="atualizaChamado(chacodigo,status,agtCodigoDev,DtPrazo.value)" mat-raised-button color="primary">Salvar</button>
                                     <button id="btnInvRadio" *ngIf="opcaoRadio == '2';"  (click)="EncerraChamado(chaCodigoEnc,statusEnc)"  mat-raised-button color="primary">Encerrar</button>
                                 </div>
                             </div>

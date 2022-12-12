@@ -51,6 +51,8 @@ import Button from "devextreme/ui/button";
 import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
 import { base64_encode } from "devextreme/data/utils";
+import { DownloadService } from 'src/app/services/download.service';
+import { ThisReceiver } from '@angular/compiler';
 
 
 
@@ -129,7 +131,7 @@ export class AbrirDemandaComponent implements OnInit {
   AtualizaChamadoArray: AtualizaChamado[] = [];
   atualizaChamadoObj = {} as AtualizaChamado;
  
-  chacodigo!:number ;
+  chacodigo!:any ;
   status!: string; 
   chaCodigoEnc!:any;
   statusEnc='F';
@@ -160,6 +162,8 @@ chaCodigo!:any;
 agtCodigoLocal:any = localStorage.getItem('MATRICULA')
 key = true;
 
+e:any
+
 myImage!:Observable<any>;
 base64code!:any;
 
@@ -182,6 +186,7 @@ onChange= ($event: Event) =>{
     ,private AtualizaChamadoService: AtualizaChamadoService
     ,private EncerraChamadoService: EncerraChamadoService
     ,private AbreChamadoService: AbreChamadoService
+    ,private downloadService: DownloadService
     ,private http: HttpClient
     ,private router: Router)
 
@@ -228,12 +233,17 @@ onChange= ($event: Event) =>{
     }
 
     onRowExpanded(){
-
     this.selecionaLinhaGrid()
     this.descricaoAtu = localStorage.getItem('DescricaoGrid')
     this.pegaChaCodigo = localStorage.getItem('chaCodigoGrid')
     console.log(this.pegaChaCodigo); 
     }
+
+    selectFile2(e: any){
+      this.file = e.target.files[0];
+    }
+
+    
     onRowExpandedTrue(){
 
       this.selecionaLinhaGridTrue()
@@ -245,25 +255,56 @@ onChange= ($event: Event) =>{
     selecionaLinhaGrid()
     {
       if(this.grdGetChamado.selectedRowKeys.length){
-            
-        localStorage.setItem('chaCodigoGrid',this.grdGetChamado.instance.getSelectedRowsData()[0].chaCodigo)
-        localStorage.setItem('DescricaoGrid',(this.grdGetChamado.instance.getSelectedRowsData()[0].chaDescricao))
+       
         localStorage.setItem('chaCodigoGrid',this.grdGetChamadoFalse.instance.getSelectedRowsData()[0].chaCodigo)
         localStorage.setItem('DescricaoGrid',(this.grdGetChamadoFalse.instance.getSelectedRowsData()[0].chaDescricao))
+        //localStorage.setItem('chaCodigoGrid',this.grdGetChamadoFalse.instance.getSelectedRowsData()[0].chaCodigo)
+        //localStorage.setItem('DescricaoGrid',(this.grdGetChamadoFalse.instance.getSelectedRowsData()[0].chaDescricao))
         //location.reload()
       }
     }
+
     selecionaLinhaGridTrue()
     {
       if(this.grdGetChamado.selectedRowKeys.length){
             
         localStorage.setItem('chaCodigoGrid',this.grdGetChamado.instance.getSelectedRowsData()[0].chaCodigo)
         localStorage.setItem('DescricaoGrid',(this.grdGetChamado.instance.getSelectedRowsData()[0].chaDescricao))
+        
         //localStorage.setItem('chaCodigoGrid',this.grdGetChamadoFalse.instance.getSelectedRowsData()[0].chaCodigo)
         //localStorage.setItem('DescricaoGrid',(this.grdGetChamadoFalse.instance.getSelectedRowsData()[0].chaDescricao))
         //location.reload()
       }
     }
+
+    selectionChanged(e:any) {
+      this.onRowExpanded()
+      e.component.collapseAll(-1);
+      this.grdGetChamadoFalse.instance.expandRow(e.currentSelectedRowKeys[0]);
+    }
+
+    selectionChangedTrue(e:any){
+      this.onRowExpandedTrue()
+      e.component.collapseAll(-1);
+      this.onRowExpandedTrue()
+      this.grdGetChamado.instance.expandRow(e.currentSelectedRowKeys[0]);
+
+    }
+
+    onRowClick(e:any){
+      if (e.rowType === 'data' && e.handled !== true) {  
+        var key = e.component.getKeyByRowIndex(e.rowIndex);  
+        var expanded = e.component.isRowExpanded(key);  
+        if (expanded) {  
+            e.component.collapseRow(key);  
+        }  
+        else {  
+            e.component.expandRow(key);  
+        }  
+    } 
+    }
+
+
 
     pegaImg()
     {
@@ -395,7 +436,7 @@ onChange= ($event: Event) =>{
 
   EncerraChamado(chaCodigoEnc: any,statusEnc:string)
   {
-    chaCodigoEnc = localStorage.getItem('chaCodigoGrid');
+    chaCodigoEnc = localStorage.getItem('chaCodigoGrid'); //60217 
     this.encerraChamadoObj.status = statusEnc;
 
     this.EncerraChamadoService.SetEncerraChamado(this.encerraChamadoObj,chaCodigoEnc,
@@ -487,6 +528,12 @@ onChange= ($event: Event) =>{
   {
     this.EncerraChamado(this.chaCodigoEnc, this.statusEnc)
   }
+ }
+
+
+ download(chaCodigo:any){
+  chaCodigo = this.pegaChaCodigo = localStorage.getItem('chaCodigoGrid')
+  this.downloadService.download(chaCodigo)
  }
 
 }
